@@ -22,7 +22,7 @@ class UserController extends Controller
         $user = \Auth::user();
         $statuses = Status::all();
         $users = User::with("statuses")->get();
-        return view('userpage', compact("user", "statuses", 'users'));
+        return view('userpage', compact( "statuses", 'users'));
     }
 
     /**

@@ -38,8 +38,7 @@ class PostController extends Controller
      */
     public function updateForm(Diary $diary, Post $post)
     {
-        $user = \Auth::user();
-        return view('editpost', compact("diary", "user", "post"));
+        return view('editpost', compact("diary", "post"));
     }
 
     /**

@@ -17,12 +17,12 @@
                 @csrf
                 <div class="mb-3">
                     <label for="formFile" class="form-label"><img class="avatar m-0"
-                                                                  src="{{$user["avatar"] ? $user["avatar"] : ""}}">
+                                                                  src="{{auth()->user()->avatar ? auth()->user()->avatar : ""}}">
                         <br>
                         avatar url:
                     </label>
                     <input type="text" class="form-control" name="avatar" id="exampleFormControlInput1"
-                           value="{{$user["avatar"]}}">
+                           value="{{auth()->user()->avatar}}">
 
                 </div>
                 <div class="mb-3">

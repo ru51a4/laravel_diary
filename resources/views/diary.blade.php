@@ -32,7 +32,7 @@
                     <div class="card-body diary">
                         <p class="card-text"> {!! $post["message"] !!}
                         </p>
-                        @if($post["user"]["name"] == $user["name"])
+                        @if($post["user"]["name"] == auth()->user()->name)
                             <div class="card-bottom">
                                 <a href="/editpost/{{$post["diary"]["id"]}}/{{$post["id"]}}">edit</a>
                             </div>

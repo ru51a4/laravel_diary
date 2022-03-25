@@ -34,8 +34,7 @@ class IndexController extends Controller
         $count = $diarys->count();
         $pages = ($count % 5 === 0) ? $count / 5 : $count / 5 + 1;
         $diarys = $diarys->offset(5 * ($page - 1))->take(5)->get();
-        $user = \Auth::user();
-        return view('home', compact('diarys', 'pages', "user", "page"));
+        return view('home', compact('diarys', 'pages', "page"));
     }
 
     public function test()
