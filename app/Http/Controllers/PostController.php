@@ -25,7 +25,8 @@ class PostController extends Controller
         $user = \Auth::user();
         $post = new Post();
         $post->message = $request->message;
-        $diary->addPost($post, $user);
+        $post->user_id = $user->id;
+        $diary->posts()->save($post);
         return redirect("/diary/" . $diary->id);
     }
 

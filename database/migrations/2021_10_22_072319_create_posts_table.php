@@ -16,7 +16,7 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->text("message");
-            $table->unsignedBigInteger("user_id")->nullable();
+            $table->unsignedBigInteger("user_id");
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger("diary_id");
             $table->foreign('diary_id')

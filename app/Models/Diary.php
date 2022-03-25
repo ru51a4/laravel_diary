@@ -19,10 +19,4 @@ class Diary extends Model
         return $this->hasMany('\App\Models\Post');
     }
 
-    public function addPost($post, $user)
-    {
-        $this->posts()->save($post);
-        $user->posts()->save($post);
-    }
-
 }
