@@ -216,6 +216,7 @@
 
 <script>
     let cReply = 0;
+    let replys = [];
     let getCountReply = () => {
         return document.querySelectorAll("span.reply").length;
     }
@@ -224,6 +225,10 @@
         $("span.reply").on("mouseenter", (el) => {
             let id = el.target.getAttribute("id");
             let div = document.createElement("div");
+            if(replys[id]){
+                replys[id].remove();
+            }
+            replys[id] = div;
             div.style.position = "absolute";
             div.style.zIndex = 999;
             div.style.backgroundColor = "white";
@@ -235,7 +240,7 @@
                 cReply = getCountReply();
             }
             div.innerHTML = document.querySelector(`.btn-reply[id="${id}"]`).parentElement.parentElement.parentElement.innerHTML;
-            el.target.insertAdjacentElement("afterbegin", div);
+            el.target.parentElement.insertAdjacentElement("afterbegin", div);
             if (cReply !== getCountReply()) {
                 cReply = getCountReply();
                 setEventsReply();
