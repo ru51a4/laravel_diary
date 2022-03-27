@@ -224,11 +224,16 @@
         $("span.reply").unbind();
         $("span.reply").on("mouseenter", (el) => {
             let id = el.target.getAttribute("id");
+            let pid = el.target.getAttribute("pid");
             let div = document.createElement("div");
-            if(replys[id]){
+            if (replys[id]) {
                 replys[id].remove();
+                delete replys[id];
             }
+            replys[pid] = div;
             replys[id] = div;
+
+            console.log(JSON.parse(JSON.stringify(replys)));
             div.style.position = "absolute";
             div.style.zIndex = 999;
             div.style.backgroundColor = "white";

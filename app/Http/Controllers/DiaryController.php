@@ -22,7 +22,7 @@ class DiaryController extends Controller
         $idDiary = $diary->id;
         $replys = Helper::replyShit($posts);
         $posts = array_map(function ($item) {
-            $item['message'] = \App\Service\Helper::parseBB($item['message']);
+            $item['message'] = \App\Service\Helper::parseBB($item['message'], $item["id"]);
             return $item;
         }, $posts);
         return view('diary', compact("posts", "idDiary", "replys"));

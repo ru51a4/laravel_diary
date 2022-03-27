@@ -21,10 +21,10 @@ class Helper
         return $result;
     }
 
-    public static function parseBB($str)
+    public static function parseBB($str, $postId)
     {
         $result = self::lex($str);
-        $generateHTML = function ($arr) {
+        $generateHTML = function ($arr, $postId) {
             $result = '';
             foreach ($arr as $item) {
                 if ($item['tag'] == "img") {
@@ -32,14 +32,14 @@ class Helper
                 } else if ($item['tag'] == "b") {
                     $result .= "<b>" . $item['t'] . "</b>";
                 } else if ($item["tag"] == "reply") {
-                    $result .= '<span id="' . $item['t'] . '" class="reply">>>' . $item['t'] . '</span>';
+                    $result .= '<span id="' . $item['t'] . '" pid="' . $postId . '" class="reply">>>' . $item['t'] . '</span>';
                 } else {
                     $result .= $item['t'];
                 }
             }
             return str_replace("\n", "<br>", $result);
         };
-        return $generateHTML($result);
+        return $generateHTML($result, $postId);
     }
 
     private static function lex($str)

@@ -42,7 +42,7 @@
                                 <div style="">
                                     @if(isset($replys[$post["id"]]))
                                         @foreach($replys[$post["id"]] as $reply)
-                                            <span style="background-color: unset!important; color: #FF6600;" id="{{$reply}}"
+                                            <span style="background-color: unset!important; color: #FF6600;" pid="{{$post["id"]}}" id="{{$reply}}"
                                                   class="reply">>>{{$reply}}</span>
                                         @endforeach
                                     @endif
