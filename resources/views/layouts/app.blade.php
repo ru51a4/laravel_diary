@@ -227,8 +227,9 @@
             let pid = el.target.getAttribute("pid");
             let div = document.createElement("div");
             if (replys[id]) {
+                //no need to delete id
+                //div old
                 replys[id].remove();
-                delete replys[id];
             }
             replys[pid] = div;
             div.style.position = "absolute";
@@ -239,7 +240,6 @@
             div.style.width = "50vw";
             div.onmouseleave = () => {
                 div.remove();
-                delete replys[pid];
                 cReply = getCountReply();
             }
             div.innerHTML = document.querySelector(`.btn-reply[id="${id}"]`).parentElement.parentElement.parentElement.innerHTML;
