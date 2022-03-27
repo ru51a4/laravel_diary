@@ -231,9 +231,6 @@
                 delete replys[id];
             }
             replys[pid] = div;
-            replys[id] = div;
-
-            console.log(JSON.parse(JSON.stringify(replys)));
             div.style.position = "absolute";
             div.style.zIndex = 999;
             div.style.backgroundColor = "white";
@@ -242,6 +239,7 @@
             div.style.width = "50vw";
             div.onmouseleave = () => {
                 div.remove();
+                delete replys[pid];
                 cReply = getCountReply();
             }
             div.innerHTML = document.querySelector(`.btn-reply[id="${id}"]`).parentElement.parentElement.parentElement.innerHTML;
