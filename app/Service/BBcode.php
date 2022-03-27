@@ -46,6 +46,8 @@ class BBcode
                     $result .= "<img class=\"post_image\" src=" . $item['t'] . ">";
                 } else if ($item['tag'] == "b") {
                     $result .= "<b>" . $item['t'] . "</b>";
+                } else if ($item["tag"] == "reply") {
+                    $result .= '<span id="' . $item['t'] . '" class="reply">>>' . $item['t'] . '</span>';
                 } else {
                     $result .= $item['t'];
                 }

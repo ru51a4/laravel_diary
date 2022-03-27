@@ -122,8 +122,14 @@
             display: flex;
             justify-content: center;
         }
-        .post_image{
+
+        .post_image {
             max-width: 300px;
+        }
+
+        .reply {
+            cursor: pointer;
+            background-color: #f6993f;
         }
     </style>
 
@@ -178,7 +184,7 @@
                     <button type="submit" class="btn btn-primary">Выйти</button>
                 </a>
             </div>
-        @endif
+            @endif
             </a>
     </header>
     @yield('content')
@@ -202,7 +208,34 @@
         </div>
     </div>
 </div>
+
 <script>
+    let cReply = 0;
+    let getCountReply = () => {
+        return document.querySelectorAll("span.reply").length;
+    }
+    let setEventsReply = (init = false) => {
+        $("span.reply").unbind();
+        $("span.reply").on("mouseenter", (el) => {
+            let id = el.target.getAttribute("id");
+            let div = document.createElement("div");
+            div.style.position = "absolute";
+            div.style.zIndex = 999;
+            div.style.backgroundColor = "white";
+            div.style.display = "flex";
+            div.style.border = "1px solid black";
+            div.style.width = "50vw";
+            div.onmouseleave = () => {
+                div.remove();
+            }
+            div.innerHTML = document.querySelector(`.btn-reply[id="${id}"]`).parentElement.parentElement.parentElement.innerHTML;
+            el.target.parentElement.insertAdjacentElement("afterbegin", div);
+            if(cReply !== getCountReply()){
+                cReply = getCountReply();
+                setEventsReply();
+            }
+        })
+    };
     $(document).ready(function () {
         $(".card-body img").on('click', (image) => {
             $("#modalzoomimage").attr("src", image.target.currentSrc);
@@ -211,6 +244,12 @@
         $(".modal .close").on("click", () => {
             $('#myModal').modal('toggle')
         })
+        $(".btn-reply").on("click", (el) => {
+            let c = $("textarea").val() + "<reply>" + el.target.getAttribute("id") + "</reply>";
+            $("textarea").val(c);
+        });
+        cReply = getCountReply();
+        setEventsReply();
     });
 </script>
 <style>
