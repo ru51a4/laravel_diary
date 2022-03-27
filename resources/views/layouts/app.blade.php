@@ -240,7 +240,7 @@
                 cReply = getCountReply();
             }
             div.innerHTML = document.querySelector(`.btn-reply[id="${id}"]`).parentElement.parentElement.parentElement.innerHTML;
-            el.target.parentElement.insertAdjacentElement("afterbegin", div);
+            el.target.insertAdjacentElement("afterbegin", div);
             if (cReply !== getCountReply()) {
                 cReply = getCountReply();
                 setEventsReply();
