@@ -96,7 +96,12 @@
         }
 
         .card-bottom {
-            align-self: flex-end;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .reply div {
+            color: black !important;
         }
 
         footer {
@@ -231,7 +236,7 @@
             }
             div.innerHTML = document.querySelector(`.btn-reply[id="${id}"]`).parentElement.parentElement.parentElement.innerHTML;
             el.target.insertAdjacentElement("afterbegin", div);
-            if(cReply !== getCountReply()){
+            if (cReply !== getCountReply()) {
                 cReply = getCountReply();
                 setEventsReply();
             }

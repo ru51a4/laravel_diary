@@ -30,12 +30,26 @@
                              src="{{$post["user"]["avatar"] ? $post["user"]["avatar"] : "http://ufland.moy.su/camera_a.gif"}}">
                     </div>
                     <div class="card-body diary">
-                        <div class="card--header"><button id="{{$post["id"]}}" style=" font-size: 10px; padding: 0px; max-width: 25px; max-height: 25px;" class="btn btn-primary btn-reply">>>{{$post["id"]}}</button></div>
+                        <div class="card--header">
+                            <button id="{{$post["id"]}}"
+                                    style=" font-size: 10px; padding: 0px; max-height: 25px;"
+                                    class="btn btn-primary btn-reply">>>{{$post["id"]}}</button>
+                        </div>
                         <p class="card-text"> {!! $post["message"] !!}
                         </p>
                         @if($post["user"]["name"] == auth()->user()->name)
                             <div class="card-bottom">
-                                <a href="/editpost/{{$post["diary"]["id"]}}/{{$post["id"]}}">edit</a>
+                                <div style="">
+                                    @if(isset($replys[$post["id"]]))
+                                        @foreach($replys[$post["id"]] as $reply)
+                                            <span style="background-color: unset!important; color: #FF6600;" id="{{$reply}}"
+                                                  class="reply">>>{{$reply}}</span>
+                                        @endforeach
+                                    @endif
+                                </div>
+                                <div>
+                                    <a href="/editpost/{{$post["diary"]["id"]}}/{{$post["id"]}}">edit</a>
+                                </div>
                             </div>
                         @endif
                     </div>

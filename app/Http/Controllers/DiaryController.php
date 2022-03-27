@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AddDiaryRequest;
 use App\Models\Diary;
 use App\Models\Post;
+use App\Service\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -19,11 +20,12 @@ class DiaryController extends Controller
     {
         $posts = Post::with('diary', "user.statuses")->where("diary_id", $diary->id)->orderBy('created_at', 'asc')->get()->toArray();
         $idDiary = $diary->id;
+        $replys = Helper::replyShit($posts);
         $posts = array_map(function ($item) {
-            $item['message'] = \App\Service\BBcode::parseBB($item['message']);
+            $item['message'] = \App\Service\Helper::parseBB($item['message']);
             return $item;
         }, $posts);
-        return view('diary', compact("posts", "idDiary",));
+        return view('diary', compact("posts", "idDiary", "replys"));
     }
 
     /**

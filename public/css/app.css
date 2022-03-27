@@ -63,11 +63,6 @@ footer {
   display: flex;
   flex-direction: column;
 }
-
-.card-bottom {
-  align-self: flex-end;
-}
-
 footer {
   margin-top: auto !important;
 }
