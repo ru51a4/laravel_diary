@@ -227,6 +227,7 @@
             div.style.width = "50vw";
             div.onmouseleave = () => {
                 div.remove();
+                cReply = getCountReply();
             }
             div.innerHTML = document.querySelector(`.btn-reply[id="${id}"]`).parentElement.parentElement.parentElement.innerHTML;
             el.target.parentElement.insertAdjacentElement("afterbegin", div);
