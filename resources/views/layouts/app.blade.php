@@ -236,6 +236,12 @@
             let id = el.target.getAttribute("id");
             let div = document.createElement("div");
             replys.push(div);
+            div.setAttribute("id", replys.length - 1);
+            div.onmouseenter = (el) => {
+                for (let i = Number(el.target.getAttribute("id")) + 1; i <= replys.length - 1; i++) {
+                    replys[i].remove();
+                }
+            };
             div.style.position = "absolute";
             div.style.zIndex = zIndex++;
             div.style.backgroundColor = "white";
