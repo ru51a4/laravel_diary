@@ -240,6 +240,7 @@
             div.onmouseenter = (el) => {
                 for (let i = Number(el.target.getAttribute("id")) + 1; i <= replys.length - 1; i++) {
                     replys[i].remove();
+                    setEventsReply();
                 }
             };
             div.style.position = "absolute";
