@@ -217,33 +217,35 @@
 <script>
     let cReply = 0;
     let replys = [];
+    let zIndex = 999;
     let getCountReply = () => {
         return document.querySelectorAll("span.reply").length;
     }
+
+    function getOffset(el) {
+        const rect = el.getBoundingClientRect();
+        return {
+            left: rect.left + window.scrollX,
+            top: rect.top + window.scrollY
+        };
+    }
+
     let setEventsReply = (init = false) => {
         $("span.reply").unbind();
         $("span.reply").on("mouseenter", (el) => {
             let id = el.target.getAttribute("id");
-            let pid = el.target.getAttribute("pid");
             let div = document.createElement("div");
-            if (replys[id]) {
-                //no need to delete id
-                //div old
-                replys[id].remove();
-            }
-            replys[pid] = div;
+            replys.push(div);
             div.style.position = "absolute";
-            div.style.zIndex = 999;
+            div.style.zIndex = zIndex++;
             div.style.backgroundColor = "white";
             div.style.display = "flex";
             div.style.border = "1px solid black";
             div.style.width = "50vw";
-            div.onmouseleave = () => {
-                div.remove();
-                cReply = getCountReply();
-            }
+            div.style.left = getOffset(el.target).left + "px";
+            div.style.top = getOffset(el.target).top + "px";
             div.innerHTML = document.querySelector(`.btn-reply[id="${id}"]`).parentElement.parentElement.parentElement.innerHTML;
-            el.target.insertAdjacentElement("afterbegin", div);
+            document.querySelector(".row > .d-flex").insertAdjacentElement("afterbegin", div);
             if (cReply !== getCountReply()) {
                 cReply = getCountReply();
                 setEventsReply();
@@ -251,6 +253,14 @@
         })
     };
     $(document).ready(function () {
+        document.querySelectorAll(".d-flex > .col-12").forEach((el) => {
+            el.addEventListener("mouseenter", () => {
+                replys.forEach((item) => {
+                    item.remove();
+                    cReply = getCountReply();
+                })
+            });
+        })
         $(".card-body img").on('click', (image) => {
             $("#modalzoomimage").attr("src", image.target.currentSrc);
             $('#myModal').modal('toggle')
