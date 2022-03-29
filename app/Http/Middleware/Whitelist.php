@@ -20,7 +20,6 @@ class Whitelist
         $diary = $request->route('diary');
         $user = Auth::user();
         if ($diary->whitelist && $user->id !== $diary->user->id) {
-            $user = Auth::user();
             if ($diary->usersWhiteList->contains($user)) {
                 return $next($request);
             } else {
