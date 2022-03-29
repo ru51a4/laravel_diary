@@ -4,9 +4,13 @@
 
 
     <div class="row d-flex justify-content-center">
-        <div class="col-9 m-4 bg-light">
+        <div class="d-flex flex-column col-9 m-4 bg-light">
             <h1 class="display-5 fw-bold">{{$posts[0]["diary"]["name"]}}</h1>
             <p class="col-md-8 fs-4">{{$posts[0]["diary"]["description"]}}</p>
+
+            @if($posts[0]["user"]["id"] == auth()->user()->id)
+            <a class="align-self-end" href="/diary/edit/{{$posts[0]["diary"]["id"]}}">whitelist</a>
+            @endif
         </div>
     </div>
     <div class="row">
@@ -37,7 +41,7 @@
                         </div>
                         <p class="card-text"> {!! $post["message"] !!}
                         </p>
-                        @if($post["user"]["name"] == auth()->user()->name)
+                        @if($post["user"]["id"] == auth()->user()->id)
                             <div class="card-bottom">
                                 <div style="">
                                     @if(isset($replys[$post["id"]]))

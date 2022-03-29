@@ -46,6 +46,11 @@ class User extends Authenticatable
         return $this->hasMany('\App\Models\Diary');
     }
 
+    public function diarysWhiteList()
+    {
+        return $this->belongsToMany('\App\Models\Diary', "users_diarys");
+    }
+
     public function posts()
     {
         return $this->hasMany('\App\Models\Post');

@@ -7,7 +7,7 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.83.1">
     <title>blogs</title>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/jumbotron/">
 
 
@@ -260,6 +260,12 @@
         })
     };
     $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         document.querySelectorAll(".d-flex > .col-12").forEach((el) => {
             el.addEventListener("mouseenter", () => {
                 replys.forEach((item) => {

@@ -19,4 +19,9 @@ class Diary extends Model
         return $this->hasMany('\App\Models\Post');
     }
 
+    public function usersWhiteList()
+    {
+        return $this->belongsToMany('\App\Models\User', "users_diarys");
+    }
+
 }
