@@ -65,7 +65,6 @@ class PostController extends Controller
     public function delete(Diary $diary, Post $post)
     {
         $this->authorize('delete', $post);
-        $user = \Auth::user();
         $post->delete();
         $isDiaryEmpty = (count($diary->posts) == 0);
         if ($isDiaryEmpty) {

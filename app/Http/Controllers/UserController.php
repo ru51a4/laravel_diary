@@ -19,7 +19,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = \Auth::user();
         $statuses = Status::all();
         $users = User::with("statuses")->get();
         return view('userpage', compact("statuses", 'users'));

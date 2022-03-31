@@ -74,18 +74,27 @@ class DiaryController extends Controller
 
     public function addwhitelist(User $user, Diary $diary)
     {
+        if (!\Gate::allows('update-diary', $diary)) {
+            abort(403);
+        }
         $diary->usersWhiteList()->save($user);
         return \redirect("/diary/edit/" . $diary->id);
     }
 
     public function deletewhitelist(User $user, Diary $diary)
     {
+        if (!\Gate::allows('update-diary', $diary)) {
+            abort(403);
+        }
         $diary->usersWhiteList()->detach($user);
         return \redirect("/diary/edit/" . $diary->id);
     }
 
     public function setWhitelist(Diary $diary, int $status)
     {
+        if (!\Gate::allows('update-diary', $diary)) {
+            abort(403);
+        }
         $diary->whitelist = (boolean)$status;
         $diary->save();
         return \redirect("/diary/edit/" . $diary->id);
