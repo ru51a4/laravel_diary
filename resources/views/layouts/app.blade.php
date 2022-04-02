@@ -238,8 +238,8 @@
             replys.push(div);
             div.setAttribute("id", replys.length - 1);
             div.onmouseenter = (el) => {
-                for (let i = Number(el.target.getAttribute("id")) + 1; i <= replys.length - 1; i++) {
-                    replys[i].remove();
+                while (Number(replys[replys.length - 1].getAttribute("id")) !== Number(el.target.getAttribute("id"))) {
+                    replys.pop().remove();
                 }
                 cReply = getCountReply();
             };
@@ -268,10 +268,10 @@
 
         document.querySelectorAll(".d-flex > .col-12").forEach((el) => {
             el.addEventListener("mouseenter", () => {
-                replys.forEach((item) => {
-                    item.remove();
-                    cReply = getCountReply();
-                })
+                while(replys.length){
+                    replys.pop().remove();
+                }
+                cReply = getCountReply();
             });
         })
         $(".card-body img").on('click', (image) => {
