@@ -230,6 +230,7 @@
         };
     }
 
+    let typeAdd = 0;
     let setEventsReply = (init = false) => {
         $("span.reply").unbind();
         $("span.reply").on("mouseenter", (el) => {
@@ -255,10 +256,35 @@
             div.style.display = "flex";
             div.style.border = "1px solid black";
             div.style.width = "50vw";
-            div.style.left = getOffset(el.target).left + "px";
-            div.style.top = getOffset(el.target).top + "px";
             div.innerHTML = document.querySelector(`.btn-reply[id="${id}"]`).parentElement.parentElement.parentElement.innerHTML;
             document.querySelector(".row > .d-flex").insertAdjacentElement("afterbegin", div);
+            //1-right bottom
+            //2-left bottom
+            //3-right up
+            //4-left up
+            if (typeAdd == 4) {
+                typeAdd = 1;
+            } else {
+                typeAdd++;
+            }
+            switch (typeAdd) {
+                case 1:
+                    div.style.left = getOffset(el.target).left + "px";
+                    div.style.top = getOffset(el.target).top + "px";
+                    break;
+                case 2:
+                    div.style.left = (getOffset(el.target).left - (Window.innerWidth / 2)) + "px";
+                    div.style.top = getOffset(el.target).top + "px";
+                    break;
+                case 3:
+                    div.style.left = getOffset(el.target).left + "px";
+                    div.style.top = getOffset(el.target).top - div.offsetHeight + "px";
+                    break;
+                case 4:
+                    div.style.left = (getOffset(el.target).left - (Window.innerWidth / 2)) + "px";
+                    div.style.top = getOffset(el.target).top - div.offsetHeight + "px";
+                    break;
+            }
             if (cReply !== getCountReply()) {
                 cReply = getCountReply();
                 setEventsReply();
