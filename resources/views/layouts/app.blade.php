@@ -235,8 +235,14 @@
         $("span.reply").on("mouseenter", (el) => {
             let id = el.target.getAttribute("id");
             let div = document.createElement("div");
+            let clone = replys.find((el) => Number(el.getAttribute("id")) === Number(id));
+            if (clone) {
+                clone.remove();
+                replys = replys.filter((el) => el !== clone);
+                cReply = getCountReply();
+            }
             replys.push(div);
-            div.setAttribute("id", replys.length - 1);
+            div.setAttribute("id", id);
             div.onmouseenter = (el) => {
                 while (Number(replys[replys.length - 1].getAttribute("id")) !== Number(el.target.getAttribute("id"))) {
                     replys.pop().remove();
@@ -268,7 +274,7 @@
 
         document.querySelectorAll(".d-flex > .col-12").forEach((el) => {
             el.addEventListener("mouseenter", () => {
-                while(replys.length){
+                while (replys.length) {
                     replys.pop().remove();
                 }
                 cReply = getCountReply();
