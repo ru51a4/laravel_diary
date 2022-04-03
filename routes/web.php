@@ -28,9 +28,12 @@ Route::get('/test', [App\Http\Controllers\IndexController::class, 'test']);
 //todo
 Route::get('/diary/createform', [App\Http\Controllers\DiaryController::class, 'createForm']);
 
-Route::get('/diary/{diary}', [App\Http\Controllers\DiaryController::class, 'show']);
+Route::get('/diary/edit/{diary}', [App\Http\Controllers\DiaryController::class, 'editForm']);
+Route::get('/diary/{diary}', [App\Http\Controllers\DiaryController::class, 'show'])->middleware(\App\Http\Middleware\Whitelist::class);;
 Route::post('/diary/create', [App\Http\Controllers\DiaryController::class, 'create']);
-
+Route::get("/diary/whitelist/add/{user}/{diary}", [App\Http\Controllers\DiaryController::class, 'addwhitelist']);
+Route::get("/diary/whitelist/delete/{user}/{diary}", [App\Http\Controllers\DiaryController::class, 'deletewhitelist']);
+Route::get("/diary/whitelist/on/{diary}/{status}", [App\Http\Controllers\DiaryController::class, 'setWhitelist']);
 
 Route::Post('/post/{diary}', [App\Http\Controllers\PostController::class, 'create']);
 Route::get('/editpost/{diary}/{post}', [App\Http\Controllers\PostController::class, 'updateForm']);
@@ -39,8 +42,8 @@ Route::get('/deletepost/{diary}/{post}', [App\Http\Controllers\PostController::c
 
 
 Route::get('/user', [App\Http\Controllers\UserController::class, 'index']);
-//get userId from auth()
 Route::Post('/user', [App\Http\Controllers\UserController::class, 'update']);
+Route::Post('/user/findusers/', [App\Http\Controllers\UserController::class, 'getUsersByStr']);
 
 Route::Post('/status/create', [App\Http\Controllers\StatusController::class, 'create'])->middleware(\App\Http\Middleware\setstatus::class);
 

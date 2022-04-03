@@ -19,10 +19,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = \Auth::user();
         $statuses = Status::all();
         $users = User::with("statuses")->get();
-        return view('userpage', compact( "statuses", 'users'));
+        return view('userpage', compact("statuses", 'users'));
     }
 
     /**
@@ -38,4 +37,15 @@ class UserController extends Controller
         $user->save();
         return redirect("/userpage/");
     }
+
+    public function getUsersByStr(Request $request)
+    {
+        $str = $request->str;
+        $diaryId = $request->diaryId;
+        return User::whereDoesntHave('diarysWhiteList', function ($query) use ($diaryId) {
+            $query->where('users_diarys.diary_id', '=', $diaryId);
+        })->select('name', 'id')->where("name", "like", $str . "%")->limit(10)->get();
+
+    }
+
 }

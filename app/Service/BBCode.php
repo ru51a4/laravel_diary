@@ -3,15 +3,13 @@
 namespace App\Service;
 
 
-class Helper
+class BBCode
 {
     public static function replyShit($arr)
     {
         $result = [];
-        $i = 0;
         foreach ($arr as $item) {
             $c = self::lex($item["message"]);
-            $i++;
             foreach ($c as $k => $t) {
                 if ($t["tag"] == "reply") {
                     $result[$t["t"]][] = $item["id"];
