@@ -2,14 +2,13 @@
 
 @section('content')
 
-
     <div class="row d-flex justify-content-center">
         <div class="d-flex flex-column col-9 m-4 bg-light">
             <h1 class="display-5 fw-bold">{{$posts[0]["diary"]["name"]}}</h1>
             <p class="col-md-8 fs-4">{{$posts[0]["diary"]["description"]}}</p>
 
             @if($posts[0]["user"]["id"] == auth()->user()->id)
-            <a class="align-self-end" href="/diary/edit/{{$posts[0]["diary"]["id"]}}">whitelist</a>
+                <a class="align-self-end" href="/diary/edit/{{$posts[0]["diary"]["id"]}}">whitelist</a>
             @endif
         </div>
     </div>
@@ -41,21 +40,22 @@
                         </div>
                         <p class="card-text"> {!! $post["message"] !!}
                         </p>
-                        @if($post["user"]["id"] == auth()->user()->id)
-                            <div class="card-bottom">
-                                <div style="">
-                                    @if(isset($replys[$post["id"]]))
-                                        @foreach($replys[$post["id"]] as $reply)
-                                            <span style="background-color: unset!important; color: #FF6600;" pid="{{$post["id"]}}" id="{{$reply}}"
-                                                  class="reply">>>{{$reply}}</span>
-                                        @endforeach
-                                    @endif
-                                </div>
-                                <div>
-                                    <a href="/editpost/{{$post["diary"]["id"]}}/{{$post["id"]}}">edit</a>
-                                </div>
+                        <div class="card-bottom">
+                            <div style="">
+                                @if(isset($replys[$post["id"]]))
+                                    @foreach($replys[$post["id"]] as $reply)
+                                        <span style="background-color: unset!important; color: #FF6600;"
+                                              pid="{{$post["id"]}}" id="{{$reply}}"
+                                              class="reply">>>{{$reply}}</span>
+                                    @endforeach
+                                @endif
                             </div>
-                        @endif
+                            <div>
+                                @if($post["user"]["id"] == auth()->user()->id)
+                                    <a href="/editpost/{{$post["diary"]["id"]}}/{{$post["id"]}}">edit</a>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
             @endforeach
@@ -75,9 +75,5 @@
             </form>
         </div>
     </div>
-
-
-
-
 
 @endsection
