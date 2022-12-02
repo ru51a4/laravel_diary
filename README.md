@@ -1,3 +1,3 @@
 laravel crud  
 jquery edition  
-http://diarys.herokuapp.com  
+http://laraveldiary.1123875-cc97019.tw1.ru/
