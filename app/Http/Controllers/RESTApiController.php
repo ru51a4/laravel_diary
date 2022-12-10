@@ -53,5 +53,34 @@ class RESTApiController extends Controller
         return $posts;
     }
 
+    public function createPost(Diary $diary, Request $request)
+    {
+        $user = \Auth::user();
+        $post = new Post();
+        $post->message = $request->message;
+        $post->user_id = $user->id;
+        $diary->posts()->save($post);;
+    }
+
+    public function createDiary(Request $request)
+    {
+        $diary = new Diary();
+        $diary->name = $request->name;
+        $diary->description = $request->desc;
+        $diary->user_id = $this->user->id;
+        $diary->whitelist = false;
+        $diary->save();
+        $post = new Post();
+        $post->message = "init diary";
+        $post->user_id = $this->user->id;;
+        $diary->posts()->save($post);
+        return $diary;
+    }
+
+    public function editPost(Post $post)
+    {
+        return $diarys;
+    }
+
 
 }

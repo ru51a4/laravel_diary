@@ -17,6 +17,9 @@ class VerifyCsrfToken extends Middleware
         "api-logout",
         "api-get_user",
         "api-dashboard",
-        "api-diary"
+        "api-diary",
+        "api-creatediary",
+        "api-createpost/*",
+        "api-editpost/*"
     ];
 }

@@ -67,5 +67,9 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('api-get_user', [ApiController::class, 'get_user']);
     Route::get('api-dashboard', [\App\Http\Controllers\RESTApiController::class, 'index']);
     Route::get('api-diary/{diary}', [\App\Http\Controllers\RESTApiController::class, 'diary']);
+    Route::post('api-creatediary/', [\App\Http\Controllers\RESTApiController::class, 'createDiary']);
+    Route::post('api-createpost/{diary}', [\App\Http\Controllers\RESTApiController::class, 'createPost']);
+    Route::post('api-editpost/{post}', [\App\Http\Controllers\RESTApiController::class, 'editPost']);
+
 
 });
