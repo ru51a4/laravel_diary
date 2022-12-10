@@ -63,7 +63,9 @@ Route::post('api-login', [ApiController::class, 'authenticate']);
 Route::post('api-register', [ApiController::class, 'register']);
 
 Route::group(['middleware' => ['jwt.verify']], function() {
-    Route::get('logout', [ApiController::class, 'logout']);
-    Route::get('get_user', [ApiController::class, 'get_user']);
-    Route::get('products', [ProductController::class, 'index']);
+    Route::get('api-logout', [ApiController::class, 'logout']);
+    Route::post('api-get_user', [ApiController::class, 'get_user']);
+    Route::get('api-dashboard', [\App\Http\Controllers\RESTApiController::class, 'index']);
+    Route::get('api-diary/{diary}', [\App\Http\Controllers\RESTApiController::class, 'diary']);
+
 });
