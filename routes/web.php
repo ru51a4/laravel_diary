@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
+use App\Http\Controllers\ProductController;
 
 
 Route::get('/', function () {
@@ -54,3 +57,13 @@ Route::post('/status/{user}', [App\Http\Controllers\StatusController::class, 'se
 
 
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
+
+
+Route::post('api-login', [ApiController::class, 'authenticate']);
+Route::post('api-register', [ApiController::class, 'register']);
+
+Route::group(['middleware' => ['jwt.verify']], function() {
+    Route::get('logout', [ApiController::class, 'logout']);
+    Route::get('get_user', [ApiController::class, 'get_user']);
+    Route::get('products', [ProductController::class, 'index']);
+});
