@@ -20,6 +20,8 @@ class VerifyCsrfToken extends Middleware
         "api-diary",
         "api-creatediary",
         "api-createpost/*",
-        "api-editpost/*"
+        "api-editpost/*",
+        "api-deletepost/*"
+
     ];
 }

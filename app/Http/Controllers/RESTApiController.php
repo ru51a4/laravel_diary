@@ -31,13 +31,13 @@ class RESTApiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($page)
     {
         $diarys = Diary::with(['user.statuses']);
         $count = $diarys->count();
         $pages = ($count % 5 === 0) ? $count / 5 : $count / 5 + 1;
-        $diarys = $diarys->offset(5 * (1 - 1))->take(5)->get();
-        return $diarys;
+        $diarys = $diarys->offset(5 * ($page - 1))->take(5)->get();
+        return ["d" => $diarys, "p" => $pages];
     }
 
 
@@ -77,10 +77,28 @@ class RESTApiController extends Controller
         return $diary;
     }
 
-    public function editPost(Post $post)
+    public function editPost(Post $post, Request $request)
     {
-        return $diarys;
+        if ($this->user->id != $post->user->id) {
+            return;
+        }
+        $msg = $request->message;
+        $post->editPost($msg);
+        return $post;
     }
 
+    public function deletePost(Post $post)
+    {
+        if ($this->user->id != $post->user->id) {
+            return;
+        }
+        $is_op = false;
+        if ($post->diary->posts[0]->id == $post->id) {
+            $post->diary->delete();
+            return;
+        }
+        $post->delete();
+        return;
+    }
 
 }
