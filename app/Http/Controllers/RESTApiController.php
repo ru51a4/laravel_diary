@@ -101,4 +101,10 @@ class RESTApiController extends Controller
         return;
     }
 
+    public function updateUser(Request $request)
+    {
+        $this->user->avatar = $request->avatar;
+        $this->user->update();
+        return;
+    }
 }
