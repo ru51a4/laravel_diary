@@ -50,7 +50,7 @@ class RESTApiController extends Controller
             $item['message'] = BBCode::parseBB($item['message'], $item["id"]);
             return $item;
         }, $posts);
-        return $posts;
+        return ["p" => $posts, "r" => $replys];
     }
 
     public function createPost(Diary $diary, Request $request)
