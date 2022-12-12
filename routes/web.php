@@ -72,6 +72,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('api-editpost/{post}', [\App\Http\Controllers\RESTApiController::class, 'editPost']);
     Route::post('api-deletepost/{post}', [\App\Http\Controllers\RESTApiController::class, 'deletePost']);
     Route::post('api-updateuser', [\App\Http\Controllers\RESTApiController::class, 'updateUser']);
+    Route::post('api-getpost/{post}', [\App\Http\Controllers\RESTApiController::class, 'getPost']);
 
 
 

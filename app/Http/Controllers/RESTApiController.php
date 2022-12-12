@@ -92,7 +92,6 @@ class RESTApiController extends Controller
         if ($this->user->id != $post->user->id) {
             return;
         }
-        $is_op = false;
         if ($post->diary->posts[0]->id == $post->id) {
             $post->diary->delete();
             return;
@@ -107,4 +106,9 @@ class RESTApiController extends Controller
         $this->user->update();
         return;
     }
+    public function getPost(Post $post)
+    {
+        return $post;
+    }
+
 }

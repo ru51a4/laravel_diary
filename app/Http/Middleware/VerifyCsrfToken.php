@@ -22,7 +22,8 @@ class VerifyCsrfToken extends Middleware
         "api-createpost/*",
         "api-editpost/*",
         "api-deletepost/*",
-        "api-updateuser"
+        "api-updateuser",
+        "api-getpost/*"
 
     ];
 }
