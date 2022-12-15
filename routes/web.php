@@ -59,20 +59,20 @@ Route::post('/status/{user}', [App\Http\Controllers\StatusController::class, 'se
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
 
 
-Route::post('api-login', [ApiController::class, 'authenticate']);
-Route::post('api-register', [ApiController::class, 'register']);
+Route::post('/api/login', [ApiController::class, 'authenticate']);
+Route::post('/api/register', [ApiController::class, 'register']);
 
 Route::group(['middleware' => ['jwt.verify']], function() {
-    Route::get('api-logout', [ApiController::class, 'logout']);
-    Route::post('api-get_user', [ApiController::class, 'get_user']);
-    Route::get('api-dashboard/{page}', [\App\Http\Controllers\RESTApiController::class, 'index']);
-    Route::get('api-diary/{diary}', [\App\Http\Controllers\RESTApiController::class, 'diary']);
-    Route::post('api-creatediary/', [\App\Http\Controllers\RESTApiController::class, 'createDiary']);
-    Route::post('api-createpost/{diary}', [\App\Http\Controllers\RESTApiController::class, 'createPost']);
-    Route::post('api-editpost/{post}', [\App\Http\Controllers\RESTApiController::class, 'editPost']);
-    Route::post('api-deletepost/{post}', [\App\Http\Controllers\RESTApiController::class, 'deletePost']);
-    Route::post('api-updateuser', [\App\Http\Controllers\RESTApiController::class, 'updateUser']);
-    Route::post('api-getpost/{post}', [\App\Http\Controllers\RESTApiController::class, 'getPost']);
+    Route::get('/api/logout', [ApiController::class, 'logout']);
+    Route::post('/api/get_user', [ApiController::class, 'get_user']);
+    Route::get('/api/dashboard/{page}', [\App\Http\Controllers\RESTApiController::class, 'index']);
+    Route::get('/api/diary/{diary}', [\App\Http\Controllers\RESTApiController::class, 'diary']);
+    Route::post('/api/creatediary/', [\App\Http\Controllers\RESTApiController::class, 'createDiary']);
+    Route::post('/api/createpost/{diary}', [\App\Http\Controllers\RESTApiController::class, 'createPost']);
+    Route::post('/api/editpost/{post}', [\App\Http\Controllers\RESTApiController::class, 'editPost']);
+    Route::post('/api/deletepost/{post}', [\App\Http\Controllers\RESTApiController::class, 'deletePost']);
+    Route::post('/api/updateuser', [\App\Http\Controllers\RESTApiController::class, 'updateUser']);
+    Route::post('/api/getpost/{post}', [\App\Http\Controllers\RESTApiController::class, 'getPost']);
 
 
 
