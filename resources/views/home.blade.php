@@ -43,7 +43,7 @@
     <div class="row mt-4">
         <nav aria-label="...">
             <ul class="pagination d-flex justify-content-end pagination-sm">
-                @for ($i = 1; $i < $pages; $i++)
+                @for ($i = 1; $i <= $pages; $i++)
                     @if($i == $page)
                         <li class="page-item active" aria-current="page">
                             <span class="page-link">{{$page}}</span>
