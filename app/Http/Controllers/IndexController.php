@@ -30,7 +30,7 @@ class IndexController extends Controller
      */
     public function index($page = 1)
     {
-        $diarys = Diary::with(['user.statuses']);
+        $diarys = Diary::with(['user.statuses'])->orderBy('created_at', 'desc');
         $count = $diarys->count();
         $pages = ($count % 5 === 0) ? $count / 5 : $count / 5 + 1;
         $diarys = $diarys->offset(5 * ($page - 1))->take(5)->get();
