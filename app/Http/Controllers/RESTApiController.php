@@ -44,9 +44,7 @@ class RESTApiController extends Controller
         }
         $rDiarys = collect($rDiarys);
 
-        $count = \DB::SELECT('SELECT COUNT(*) as count FROM diaries AS a INNER JOIN 
-            (SELECT diary_id as di, MAX(id) as kek FROM posts group by diary_id) gg ON a.id = gg.di
-            ORDER BY gg.kek DESC')[0]->count;
+        $count = \DB::SELECT('SELECT COUNT(*) as count FROM diaries')[0]->count;
 
         $pages = ($count % 5 === 0) ? $count / 5 : $count / 5 + 1;
         $diarys = $rDiarys;
