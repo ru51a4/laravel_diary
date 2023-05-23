@@ -46,7 +46,7 @@ class RESTApiController extends Controller
 
         $count = \DB::SELECT('SELECT COUNT(*) as count FROM diaries AS a INNER JOIN 
             (SELECT diary_id as di, MAX(id) as kek FROM posts group by diary_id) gg ON a.id = gg.di
-            ORDER BY gg.kek DESC LIMIT 5 OFFSET 0')[0]->count;
+            ORDER BY gg.kek DESC')[0]->count;
 
         $pages = ($count % 5 === 0) ? $count / 5 : $count / 5 + 1;
         $diarys = $rDiarys;
@@ -74,7 +74,7 @@ class RESTApiController extends Controller
         $post->message = $request->message;
         $post->user_id = $user->id;
         $diary->posts()->save($post);
-        ;
+
     }
 
     public function createDiary(Request $request)
@@ -88,7 +88,7 @@ class RESTApiController extends Controller
         $post = new Post();
         $post->message = "init diary";
         $post->user_id = $this->user->id;
-        ;
+
         $diary->posts()->save($post);
         return $diary;
     }
