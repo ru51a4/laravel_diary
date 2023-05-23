@@ -33,10 +33,24 @@ class RESTApiController extends Controller
      */
     public function index($page)
     {
-        $diarys = Diary::with(['user.statuses'])->orderBy('created_at', 'desc');
-        $count = $diarys->count();
+        $diarys = \DB::SELECT('SELECT * FROM diaries AS a INNER JOIN 
+            (SELECT diary_id as di, MAX(id) as kek FROM posts group by diary_id) gg ON a.id = gg.di
+            ORDER BY gg.kek DESC LIMIT 5 OFFSET ?', [5 * ($page - 1)]);
+
+        //sqlite fuck you
+        $rDiarys = [];
+        foreach ($diarys as $diary) {
+            $rDiarys[] = Diary::where("id", $diary->id)->with(['user.statuses'])->get()[0];
+        }
+        $rDiarys = collect($rDiarys);
+
+        $count = \DB::SELECT('SELECT COUNT(*) as count FROM diaries AS a INNER JOIN 
+            (SELECT diary_id as di, MAX(id) as kek FROM posts group by diary_id) gg ON a.id = gg.di
+            ORDER BY gg.kek DESC LIMIT 5 OFFSET 0')[0]->count;
+
         $pages = ($count % 5 === 0) ? $count / 5 : $count / 5 + 1;
-        $diarys = $diarys->offset(5 * ($page - 1))->take(5)->get();
+        $diarys = $rDiarys;
+
         return ["d" => $diarys, "p" => $pages];
     }
 
@@ -59,7 +73,8 @@ class RESTApiController extends Controller
         $post = new Post();
         $post->message = $request->message;
         $post->user_id = $user->id;
-        $diary->posts()->save($post);;
+        $diary->posts()->save($post);
+        ;
     }
 
     public function createDiary(Request $request)
@@ -72,7 +87,8 @@ class RESTApiController extends Controller
         $diary->save();
         $post = new Post();
         $post->message = "init diary";
-        $post->user_id = $this->user->id;;
+        $post->user_id = $this->user->id;
+        ;
         $diary->posts()->save($post);
         return $diary;
     }
