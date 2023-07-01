@@ -22,6 +22,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::get('/github', [App\Http\Controllers\Auth\LoginController::class, 'authGithub']);
+Route::get('/githubsuccess', [App\Http\Controllers\Auth\LoginController::class, 'registerGithub']);
 
 Route::get('/home/{page}', [App\Http\Controllers\IndexController::class, 'index']);
 Route::get('/home/', [App\Http\Controllers\IndexController::class, 'index']);
@@ -32,7 +34,8 @@ Route::get('/test', [App\Http\Controllers\IndexController::class, 'test']);
 Route::get('/diary/createform', [App\Http\Controllers\DiaryController::class, 'createForm']);
 
 Route::get('/diary/edit/{diary}', [App\Http\Controllers\DiaryController::class, 'editForm']);
-Route::get('/diary/{diary}', [App\Http\Controllers\DiaryController::class, 'show'])->middleware(\App\Http\Middleware\Whitelist::class);;
+Route::get('/diary/{diary}', [App\Http\Controllers\DiaryController::class, 'show'])->middleware(\App\Http\Middleware\Whitelist::class);
+;
 Route::post('/diary/create', [App\Http\Controllers\DiaryController::class, 'create']);
 Route::get("/diary/whitelist/add/{user}/{diary}", [App\Http\Controllers\DiaryController::class, 'addwhitelist']);
 Route::get("/diary/whitelist/delete/{user}/{diary}", [App\Http\Controllers\DiaryController::class, 'deletewhitelist']);
@@ -62,7 +65,7 @@ Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout
 Route::post('/api/login', [ApiController::class, 'authenticate']);
 Route::post('/api/register', [ApiController::class, 'register']);
 
-Route::group(['middleware' => ['jwt.verify']], function() {
+Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('/api/logout', [ApiController::class, 'logout']);
     Route::post('/api/get_user', [ApiController::class, 'get_user']);
     Route::get('/api/dashboard/{page}', [\App\Http\Controllers\RESTApiController::class, 'index']);

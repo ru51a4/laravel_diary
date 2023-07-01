@@ -95,7 +95,7 @@ class DiaryController extends Controller
         if (!\Gate::allows('update-diary', $diary)) {
             abort(403);
         }
-        $diary->whitelist = (boolean)$status;
+        $diary->whitelist = (boolean) $status;
         $diary->save();
         return \redirect("/diary/edit/" . $diary->id);
     }

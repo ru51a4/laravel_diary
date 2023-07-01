@@ -71,11 +71,19 @@
                                 </div>
                             </div>
                         </form>
+                        <div class="d-flex justify-content-between">
                         <a href="/register" class="ml-auto">
                             <button type="submit" class="btn btn-primary">
                                 register
                             </button>
                         </a>
+                        <a href="/github" class="ml-auto">
+                            <button type="submit" class="btn btn-primary">
+                                login github
+                             </button>
+                        </a>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
