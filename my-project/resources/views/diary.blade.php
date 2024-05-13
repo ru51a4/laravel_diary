@@ -69,7 +69,7 @@
                         <textarea class="form-control" name="message" id="exampleFormControlTextarea1"
                                   rows="3"></textarea>
                 </div>
-                <div class="d-flex flex-column align-items-start">
+                <div class="d-flex mt-1 flex-column align-items-start">
                     <div class="h-captcha" data-sitekey="44bc33ce-4978-4b30-bc7c-7d1249280700"></div>
                 </div>
                 <div class="d-flex justify-content-end">
