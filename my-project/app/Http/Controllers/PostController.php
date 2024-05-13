@@ -68,12 +68,12 @@ class PostController extends Controller
     public function delete(Diary $diary, Post $post)
     {
         $this->authorize('delete', $post);
-        $post->delete();
-        $isDiaryEmpty = (count($diary->posts) == 0);
-        if ($isDiaryEmpty) {
+        if ($diary->posts[0]->id === $post->id) {
             $diary->delete();
             return redirect("/home/");
         }
+        $post->delete();
+
         return redirect("/diary/" . $diary->id);
     }
 }
