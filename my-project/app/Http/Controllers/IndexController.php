@@ -39,8 +39,8 @@ class IndexController extends Controller
             return $item->id;
         }, $diarys);
 
-        $diarys = Diary::whereIn('id', $ids)->with(['user.statuses'])->get()->sortBy(function ($product) use ($ids){
-            return array_search($product->id, $ids);
+        $diarys = Diary::whereIn('id', $ids)->with(['user.statuses'])->get()->sortBy(function ($item) use ($ids){
+            return array_search($item->id, $ids);
         });
 
         $count = \DB::SELECT('SELECT COUNT(*) as count FROM diaries')[0]->count;
