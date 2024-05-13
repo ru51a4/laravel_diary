@@ -22,6 +22,7 @@
             integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
             crossorigin="anonymous"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src='https://www.hCaptcha.com/1/api.js' async defer></script>
 
     <script src="/js/app.js"></script>
     <style>

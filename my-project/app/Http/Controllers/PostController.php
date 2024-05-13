@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\Models\Diary;
 use App\Models\Post;
+use App\Service\hcaptcha;
 use http\Env\Response;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Contracts\Support\Responsable;
@@ -19,9 +20,11 @@ class PostController extends Controller
      * @param PostRequest $request post data
      * @return Redirect
      */
-    public function create(Diary $diary, PostRequest $request)
+    public function create(hcaptcha $hcaptcha, Diary $diary, PostRequest $request)
     {
-        $request->validated();
+        if (!$request->validated() || !$hcaptcha->check($request->{'h-captcha-response'})) {
+            return redirect("/diary/" . $diary->id);
+        }
         $user = \Auth::user();
         $post = new Post();
         $post->message = $request->message;

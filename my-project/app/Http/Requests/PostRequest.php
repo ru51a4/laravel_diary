@@ -25,6 +25,7 @@ class PostRequest extends FormRequest
     {
         return [
             'message' => 'required',
+            'h-captcha-response' => 'required',
         ];
     }
 }

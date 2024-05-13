@@ -26,6 +26,7 @@ class AddDiaryRequest extends FormRequest
         return [
             'name' => 'required',
             'description' => 'required',
+            'h-captcha-response' => 'required',
         ];
     }
 }

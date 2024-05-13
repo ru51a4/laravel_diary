@@ -7,6 +7,7 @@ use App\Models\Diary;
 use App\Models\Post;
 use App\Models\User;
 use App\Service\BBCode;
+use App\Service\hcaptcha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -50,9 +51,11 @@ class DiaryController extends Controller
      * @param AddDiaryRequest $request diary data
      * @return Redirect
      */
-    public function create(AddDiaryRequest $request)
+    public function create(hcaptcha $hcaptcha, AddDiaryRequest $request)
     {
-        $request->validated();
+        if(!$request->validated() || !$hcaptcha->check($request->{'h-captcha-response'})){
+            return redirect("/home");
+        };
         $diary = new Diary();
         $diary->name = $request->name;
         $diary->description = $request->description;

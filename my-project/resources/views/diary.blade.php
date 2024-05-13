@@ -25,7 +25,7 @@
                                         {{$status["name"]}}<br>
                                     @endforeach
                                 @else
-                                    {{"блогер" }}
+                                    {{"Блогер" }}
                                 @endif
                             </p>
                         </div>
@@ -68,6 +68,9 @@
                 <div>
                         <textarea class="form-control" name="message" id="exampleFormControlTextarea1"
                                   rows="3"></textarea>
+                </div>
+                <div class="d-flex flex-column align-items-start">
+                    <div class="h-captcha" data-sitekey="44bc33ce-4978-4b30-bc7c-7d1249280700"></div>
                 </div>
                 <div class="d-flex justify-content-end">
                     <button type="submit" class="btn btn-primary mt-2">Добавить</button>

@@ -20,12 +20,12 @@
                             <div class="nickname nickname-author">
                                 {{$diary->user->name}}
                                 <p class="status">
-                                    @if($diary->user->statuses)
+                                    @if(count($diary->user->statuses) > 0)
                                         @foreach($diary->user->statuses as $status)
                                             {{$status->name}}<br>
                                         @endforeach
                                     @else
-                                        {{"блогер" }}
+                                        {{"Блогер" }}
                                     @endif
                                 </p></div>
                             <img class="avatar"
