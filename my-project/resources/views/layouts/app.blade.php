@@ -193,6 +193,13 @@
             @endif
             </a>
     </header>
+    <div class="d-flex justify-content-center flex-row align-items-center flash-message">
+        @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+            @if(Session::has('alert-' . $msg))
+                <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }}</p>
+            @endif
+        @endforeach
+    </div>
     @yield('content')
     <footer class="pt-3 text-muted border-top">
         superwebteam &copy; 2021

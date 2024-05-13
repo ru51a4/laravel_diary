@@ -3,6 +3,8 @@
 namespace App\Service;
 
 
+use Illuminate\Support\Facades\Session;
+
 class hcaptcha
 {
     public function check($captcha)
@@ -22,6 +24,7 @@ class hcaptcha
         if ($responseData->success) {
             return true;
         } else {
+            Session::flash('alert-danger', 'captcha error');
             return false;
         }
 
