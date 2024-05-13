@@ -33,21 +33,22 @@ class RESTApiController extends Controller
      */
     public function index($page)
     {
-        $diarys = \DB::SELECT('SELECT * FROM diaries AS a INNER JOIN 
+        $diarys = \DB::SELECT('SELECT * FROM diaries AS a INNER JOIN
             (SELECT diary_id as di, MAX(id) as kek FROM posts group by diary_id) gg ON a.id = gg.di
             ORDER BY gg.kek DESC LIMIT 5 OFFSET ?', [5 * ($page - 1)]);
 
-        //sqlite fuck you
-        $rDiarys = [];
-        foreach ($diarys as $diary) {
-            $rDiarys[] = Diary::where("id", $diary->id)->with(['user.statuses'])->get()[0];
-        }
-        $rDiarys = collect($rDiarys);
+        $ids = array_map(function ($item) {
+            return $item->id;
+        }, $diarys);
+
+        $diarys = Diary::whereIn('id', $ids)->with(['user.statuses'])->get()->sortBy(function ($product) use ($ids){
+            return array_search($product->id, $ids);
+        });
+
 
         $count = \DB::SELECT('SELECT COUNT(*) as count FROM diaries')[0]->count;
 
         $pages = ($count % 5 === 0) ? $count / 5 : $count / 5 + 1;
-        $diarys = $rDiarys;
 
         return ["d" => $diarys, "p" => $pages];
     }
